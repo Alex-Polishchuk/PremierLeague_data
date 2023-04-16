@@ -1,5 +1,4 @@
 #to calculate the win rate of teams (overall, per season, against certain teams)
-
 import pandas as pd
 import seaborn as sns
 import sqlite3 as sql
@@ -7,12 +6,6 @@ import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
 df = pd.read_csv('results.csv', parse_dates=True)
-
-#Calculating win rates for teams
-
-#Creating a dataframe for team
-
-#add all teams to dataFrame
 
 home_value = df.value_counts('HomeTeam')
 away_value = df.value_counts('AwayTeam')
@@ -38,18 +31,49 @@ total_df = pd.merge(home_df, away_df, on='Team')
 print(home_df.shape, total_df.shape, away_df.shape)
 
 total_df['Total Played'] = ''
-
-total_df.loc[total_df['Liverpool']] = 10
-
-print(total_df)
+#total_df.set_index('Team' , inplace=True)
 
 for index, team in total_df.iterrows():
-    filter = total_df.loc[total_df['Team'] == team['Team']]
-    home_played = filter['Games Played Home']
-    home_played = int(home_played)
-    away_played = filter['Games Played Away']
+
+    #call the index of the home and away game values for a certain team
+    home_played = total_df.loc[index, 'Games Played Home']
+    away_played = total_df.loc[index, 'Games Played Away']
+
+    #changed it to integers
     away_played = int(away_played)
+    home_played = int(home_played)
+
+    #sum home and away games
     total_played = home_played + away_played
+
+    #changes the value of the team to the correct value
+    total_df.loc[index, 'Total Played'] = total_played
     #print(type(total_played))
 
-print(total_df)
+total_df['Home Wins'] = ''
+total_df['Away Wins'] = ''
+total_df['Total Wins'] = ''
+
+total_df['Home Draw Percentage'] = ''
+total_df['Away Draw Percentage'] = ''
+total_df['Total Draw Percentage'] = ''
+
+total_df['Home Loss Percentage'] = ''
+total_df['Away Loss Percentage'] = ''
+total_df['Total Loss Percentage'] = ''
+
+
+total_df['Home Win Percentage'] = ''
+total_df['Away Win Percentage'] = ''
+total_df['Total Win Percentage'] = ''
+
+
+#go through home wins
+for index, team in total_df.iterrows():
+    pass
+
+    #iterate through home wins
+    #look at home team --> see if won, if draw, else it was a loss
+    #at them to the correct tallies
+
+    
