@@ -1,4 +1,5 @@
 # PremierLeague_data
+The aim of this projet is for me to improve my knolwesge of; SQL, Pandas and Data Visualisation tools
 
 This repository is for analysing historic premier league data from 93/94 --> 21/22
 
