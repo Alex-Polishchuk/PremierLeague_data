@@ -4,7 +4,7 @@ import sqlite3 as sql
 import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
-data_pd = pd.read_csv(r"PremierLeague_data\results.csv", parse_dates=True, encoding='ISO-8859-1')
+data_pd = pd.read_csv("results.csv", parse_dates=True, encoding='ISO-8859-1')
 
 #Data is saved to a pandas data frame
 data = pd.DataFrame(data_pd)
@@ -45,17 +45,27 @@ def graph_plotter (queryName, graphColumns, graphOut, cursor):
 def remove_data(data, *args):
     for i in args:
         data = data.drop(i, axis=1)
+    return data
 
-def process_data(output_name, cursor,*args):
-    for i in args:
-        cursor.execute(i)
-        output_name = cursor.fetchall()
+def process_data(output_name, cursor, query):
+        
+    cursor.execute(query)
+    output_name = cursor.fetchall()
+    return output_name
 
-third_query = """
-    SELECT Season, SUM(HR), SUM(AR)
+#DELETS uncomplete data in the season, showcase this before hand
+delete_query = """
+    DELETE
     FROM prem_data
-    GROUP By Season
+    WHERE season = 2021-22
 """
+name = "prem_data"
+cursor, open_connecction = database_creator(name)
+print(data)
+
+
+
+database_closer(name, cursor, open_connecction)
 
 #FETCHING AND ASSIGNING THE DATA
 # cursor.execute(first_query)
@@ -75,5 +85,5 @@ third_query = """
 # graph_figure = sns.lineplot(data=third_processed_data)
 # graph_figure.figure.savefig('graph.png')
 
-new_query = ['Season', 'Home Red', 'Away Red']
-graph_plotter(third_query, new_query, 'RedCard stats')
+#graph_plotter(third_query, new_query, 'RedCard stats')
+
