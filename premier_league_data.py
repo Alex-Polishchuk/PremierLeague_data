@@ -4,8 +4,7 @@ import sqlite3 as sql
 import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
-
-data_pd = pd.read_csv('results.csv', parse_dates=True)
+data_pd = pd.read_csv(r"PremierLeague_data\results.csv", parse_dates=True, encoding='ISO-8859-1')
 data = pd.DataFrame(data_pd)
 
 #print(data.iloc[0,:])
@@ -18,10 +17,6 @@ data = pd.DataFrame(data_pd)
 #print(data.loc[data.FTHG.isin([5, 6, 7, 8, 9]) & data.FTAG.isin([2, 3, 4, 5, 6, 7])])
 #print(list(data.columns))
 
-#engine = create_engine('sqlite:///prem_data.db', echo=True)
-#data.to_sql('prem_data', con=engine, if_exists='replace', index=False)
-open_connection = sql.connect('C:\\Users\\alexp\\Desktop\\Code\\Data Practice\\prem_data.db')
-cursor = open_connection.cursor()
 
 # first_query = """
 #     SELECT Season, DateTime, HomeTeam, FTHG, FTAG, AwayTeam
@@ -59,7 +54,22 @@ third_query = """
 # graph_figure = sns.lineplot(data=third_processed_data)
 # graph_figure.figure.savefig('graph.png')
 
-def graph_plotter (queryName, graphColumns, graphOut):
+def database_creator(db_Name):
+    engine = create_engine(f'sqlite:///{db_Name}.db', echo=True)
+    data.to_sql(db_Name, con=engine, if_exists='replace', index=False)
+    open_connection = sql.connect(f'C:\\Users\\alexp\\Desktop\\Code\\Data Practice\\{db_Name}.db')
+    cursor = open_connection.cursor()
+
+    return cursor, open_connection
+
+def database_closer(db_Name, cursor, connection):
+    cursor.close()
+    connection.close()
+
+def SQL_query():
+    pass
+
+def graph_plotter (queryName, graphColumns, graphOut, cursor):
     cursor.execute(queryName)
     result = cursor.fetchall()
 
@@ -83,5 +93,3 @@ graph_plotter(third_query, new_query, 'RedCard stats')
 # print(second_processed_data.head(), second_processed_data.shape, second_processed_data.size)
 
 #Allows us to close a connection when needed
-cursor.close()
-open_connection.close()
