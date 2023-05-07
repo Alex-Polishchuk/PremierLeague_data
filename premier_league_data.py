@@ -1,13 +1,17 @@
 import pandas as pd
 import seaborn as sns
 import sqlite3 as sql
-import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
 data_pd = pd.read_csv("results.csv", parse_dates=True, encoding='ISO-8859-1')
 
 #Data is saved to a pandas data frame
 data = pd.DataFrame(data_pd)
+
+string = """
+SELECT *
+FROM prem_data.db
+"""
 
 #create a databse with a specified name
 def database_creator(db_Name):
@@ -25,13 +29,21 @@ def database_closer(db_Name, cursor, connection):
     connection.close()
 
 def process_data(output_name, cursor, query):
-        
-    cursor.execute(query)
-    output_name = cursor.fetchall()
+    try:
+        cursor.execute(query)
+        output_name = cursor.fetchall()
+    except:
+        print("An error has occured with your query")
+    
     return output_name
 
 def query_acceptor():
-    user_input = input(str("Input your search query"))
+    user_input = input(str("Input your search query:\n"))
+    return user_input
+
+def sql_to_DF(query, DF_name):
+    print("SQL to DataFrame")
+    pass
 
 def graph_plotter (queryName, graphColumns, graphOut, cursor):
     cursor.execute(queryName)
@@ -49,15 +61,11 @@ def remove_data(data, *args):
         data = data.drop(i, axis=1)
     return data
 
-#DELETS uncomplete data in the season, showcase this before hand
-delete_query = """
-    DELETE
-    FROM prem_data
-    WHERE season = 2021-22
-"""
 name = "prem_data"
-cursor, open_connecction = database_creator(name)
 
-
-
-database_closer(name, cursor, open_connecction)
+if __name__ == "__main__":
+    cursor, open_connecction = database_creator(name)
+    #user_query = query_acceptor()
+    data = process_data("SQL_output", string, cursor)
+    DF = sql_to_DF(data, "dataframe_test")
+    database_closer(name, cursor, open_connecction)
