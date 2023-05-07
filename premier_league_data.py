@@ -9,16 +9,16 @@ data_pd = pd.read_csv("results.csv", parse_dates=True, encoding='ISO-8859-1')
 data = pd.DataFrame(data_pd)
 
 string = """
-SELECT *
-FROM prem_data.db
+SELECT name FROM sqlite_master WHERE type='table';
 """
 
 #create a databse with a specified name
 def database_creator(db_Name):
     engine = create_engine(f'sqlite:///{db_Name}.db', echo=True)
-    data.to_sql(db_Name, con=engine, if_exists='replace', index=False)
+    data.to_sql(db_Name, con=engine, if_exists='append', index=False)
     open_connection = sql.connect(f'C:\\Users\\alexp\\Desktop\\Code\\Data Practice\\{db_Name}.db')
     cursor = open_connection.cursor()
+    open_connection.commit()
 
     return cursor, open_connection
     #returns cursor which interacts with the database created
@@ -29,12 +29,9 @@ def database_closer(db_Name, cursor, connection):
     connection.close()
 
 def process_data(output_name, cursor, query):
-    try:
-        cursor.execute(query)
-        output_name = cursor.fetchall()
-    except:
-        print("An error has occured with your query")
-    
+
+    output_name = cursor.execute(query)
+
     return output_name
 
 def query_acceptor():
@@ -66,6 +63,7 @@ name = "prem_data"
 if __name__ == "__main__":
     cursor, open_connecction = database_creator(name)
     #user_query = query_acceptor()
-    data = process_data("SQL_output", string, cursor)
+    data = process_data("SQL_output", cursor, string)
+    print(data)
     DF = sql_to_DF(data, "dataframe_test")
     database_closer(name, cursor, open_connecction)

@@ -48,3 +48,23 @@ for season in list_Season:
     #print(season, HG + AG)
 
 print(season_list)
+
+#FETCHING AND ASSIGNING THE DATA
+# cursor.execute(first_query)
+# cursor.execute(second_query)
+#cursor.execute(third_query)
+# first_results = cursor.fetchmany()
+# second_results = cursor.fetchall()
+#third_results = cursor.fetchall()
+
+
+#CONVERTING THE SQL DATA TO A PANDA DATAFRAME SO IT CAN BE USED TO VISUALISE ETC
+# first_processed_data = pd.DataFrame(first_results, columns=['Season', 'DateTime', 'Home Team','HG','AG','Away Team'])
+# second_processed_data = pd.DataFrame(second_results, columns=['Season', 'DateTime', 'HomeTeam', 'HG', 'AG', 'AwayTeam'])
+# third_processed_data = pd.DataFrame(third_results, columns = ['Season', 'Yellows', 'Reds'])
+# print(third_processed_data)
+
+# graph_figure = sns.lineplot(data=third_processed_data)
+# graph_figure.figure.savefig('graph.png')
+
+#graph_plotter(third_query, new_query, 'RedCard stats')
