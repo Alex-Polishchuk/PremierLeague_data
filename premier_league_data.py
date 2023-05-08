@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 data_pd = pd.read_csv("results.csv", parse_dates=True, encoding='ISO-8859-1')
 
 #Data is saved to a pandas data frame
-data = pd.DataFrame(data_pd)
+df = pd.DataFrame(data_pd)
 
 string = """
 SELECT name FROM sqlite_master WHERE type='table';
@@ -58,12 +58,14 @@ def remove_data(data, *args):
         data = data.drop(i, axis=1)
     return data
 
-name = "prem_data"
 
-if __name__ == "__main__":
-    cursor, open_connecction = database_creator(name)
-    #user_query = query_acceptor()
-    data = process_data("SQL_output", cursor, string)
-    print(data)
-    DF = sql_to_DF(data, "dataframe_test")
-    database_closer(name, cursor, open_connecction)
+# if __name__ == "__main__":
+#     cursor, open_connecction = database_creator(name)
+#     #user_query = query_acceptor()
+#     data = process_data("SQL_output", cursor, string)
+#     DF = sql_to_DF(data, "dataframe_test")
+#     database_closer(name, cursor, open_connecction)
+
+totalHG = df['FTHG'].value_counts()
+totalAG = df['FTAG'].value_counts()
+print(totalHG, totalAG)
