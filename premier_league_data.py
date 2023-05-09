@@ -15,7 +15,7 @@ SELECT name FROM sqlite_master WHERE type='table';
 #create a databse with a specified name
 def database_creator(db_Name):
     engine = create_engine(f'sqlite:///{db_Name}.db', echo=True)
-    data.to_sql(db_Name, con=engine, if_exists='append', index=False)
+    df.to_sql(db_Name, con=engine, if_exists='append', index=False)
     open_connection = sql.connect(f'C:\\Users\\alexp\\Desktop\\Code\\Data Practice\\{db_Name}.db')
     cursor = open_connection.cursor()
     open_connection.commit()

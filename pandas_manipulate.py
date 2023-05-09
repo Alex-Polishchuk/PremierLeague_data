@@ -4,10 +4,10 @@ import sqlite3 as sql
 import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
-df = pd.read_csv('results.csv', parse_dates=True)
+df = pd.read_csv('results.csv', parse_dates=True, encoding='ISO-8859-1')
 
-# totalHG = df['FTHG'].value_counts()
-# totalAG = df['FTAG'].value_counts()
+totalHG = df['FTHG'].value_counts()
+totalAG = df['FTAG'].value_counts()
 
 # print(totalHG, totalAG)
 
@@ -20,8 +20,9 @@ df = pd.read_csv('results.csv', parse_dates=True)
 # plt.legend(title='Team', loc='upper right', labels=['Home Goal', 'Away Goal'])
 # plt.show()
 
-# tot_HomeTeam = df['HomeTeam'].value_counts()
-# tot_AwayTeam = df['AwayTeam'].value_counts()
+tot_HomeTeam = df['HomeTeam'].value_counts()
+tot_AwayTeam = df['AwayTeam'].value_counts()
+
 # print(tot_HomeTeam, tot_AwayTeam)
 
 # total_Season = df['Season'].value_counts()
