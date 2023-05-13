@@ -1,9 +1,5 @@
 #to calculate the win rate of teams (overall, per season, against certain teams)
 import pandas as pd
-import seaborn as sns
-import sqlite3 as sql
-import matplotlib.pyplot as plt
-from sqlalchemy import create_engine
 
 df = pd.read_csv('results.csv', parse_dates=True)
 
@@ -68,12 +64,10 @@ total_df['Away Win Percentage'] = ''
 total_df['Total Win Percentage'] = ''
 
 
-#go through home wins
 for index, team in total_df.iterrows():
-    pass
-
-    #iterate through home wins
-    #look at home team --> see if won, if draw, else it was a loss
-    #at them to the correct tallies
-
-    
+    total_played = total_df.loc[index, 'Total Played']
+    home_wins = df[(df['HomeTeam'] == team) & (df['Result'] == 'HomeTeam')].shape[0]
+    away_wins = df[(df['AwayTeam'] == team) & (df['Result'] == 'AwayTeam')].shape[0]
+    total_wins = home_wins + away_wins
+    win_rate = total_wins / total_played
+    total_df.loc[index, 'Win Rate'] = win_rate
