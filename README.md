@@ -1,17 +1,15 @@
 # PremierLeague_data
 The aim of this projet is for me to improve my knolwesge of; SQL, Pandas and Data Visualisation tools
 
-This repository is for analysing historic premier league data from 93/94 --> 21/22
+This repository is for analysing historic premier league data from 93/94 --> 20/21
 
-Things to achieve:
-remove most recent season, incomplete data
+Current things achieved: 
+- dropped incomplete data
+- how many games played in the premier league
+- total wins / losses & draws in the premier league for all teams
+- calculated win / draw / loss rates for all teams in the premier league
 
-Team Data
-find the number of games each team has played : sql
-what teams have been in the premier league and for how long
-total wins
-total home and away wins
-
-Time & Date stuff
-most common time played at
-most & least common days played
+Aims:
+- Create a dashboard so that the data can be viewed
+- Calculate win / draw / loss rates for a given season & or date range
+- Calculate final premier league tables using data provided
