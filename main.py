@@ -5,8 +5,11 @@ from dash import html
 import pandas as pd
 
 #Import and potentially clean the data
-data = pd.read_csv("CSV_files/wins_per_team.csv")
-data.sort_values("%W", inplace=True)
+data1 = pd.read_csv("CSV_files/wins_per_team.csv")
+data2 = pd.read_csv("CSV_files/wins_per_team.csv")
+
+data1.sort_values("%W", inplace=True)
+data2.sort_values("%D", inplace=True)
 
 app = Dash(__name__)
 
@@ -20,12 +23,37 @@ app.layout = html.Div(
             figure={
                 "data": [
                     {
-                        "x": data["Team"],
-                        "y": data["%W"],
+                        "x": data1["Team"],
+                        "y": data1["%W"],
                         "type":"scatter",
                     },
                 ],
-                "layout": {"title":"Premier league data", "x":"Win Percentage (%)", "y":"Teams"}
+                "layout": {"title":"Premier league Win rate of teams",
+                           'xaxis':{
+                               'title':"Team"},
+                            'yaxis':{
+                                'title':"Percent Win Rate (%)"
+                            }
+                           }
+            }
+        ),
+        dcc.Graph(
+            figure={
+                "data": [
+                    {
+                        "x": data2["Team"],
+                        "y": data2["%D"],
+                        "type":"scatter",
+
+                    },
+                ],
+                "layout": {"title":"Premier league draw rate of teams",
+                           'xaxis':{
+                               'title':"Team"},
+                            'yaxis':{
+                                'title':"Percent Draw Rate (%)"
+                            }
+                           }
             }
         )
     ]
