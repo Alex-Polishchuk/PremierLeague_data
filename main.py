@@ -1,12 +1,12 @@
+#Import all the necessary libraries
 from dash import Dash
 from dash import dcc
 from dash import html
 import pandas as pd
 
+#Import and potentially clean the data
 data = pd.read_csv("CSV_files/wins_per_team.csv")
-print(data.head())
-
-data = data.query("Team == 'Arsenal'")
+data.sort_values("%W", inplace=True)
 
 app = Dash(__name__)
 
@@ -22,10 +22,10 @@ app.layout = html.Div(
                     {
                         "x": data["Team"],
                         "y": data["%W"],
-                        "type":"lines",
+                        "type":"scatter",
                     },
                 ],
-                "layout": {"title":"Premier league data"}
+                "layout": {"title":"Premier league data", "x":"Win Percentage (%)", "y":"Teams"}
             }
         )
     ]
