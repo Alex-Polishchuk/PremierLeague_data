@@ -8,8 +8,9 @@ Current things achieved:
 - how many games played in the premier league
 - total wins / losses & draws in the premier league for all teams
 - calculated win / draw / loss rates for all teams in the premier league
-
-Aims:
 - Create a dashboard so that the data can be viewed
+- 
+Aims:
 - Calculate win / draw / loss rates for a given season & or date range
 - Calculate final premier league tables using data provided
+- Customisable dashboard
